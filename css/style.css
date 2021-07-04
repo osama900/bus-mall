@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik&family=Tourney:ital@1&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+header {
+  background-color: rgba(192, 192, 192, 0.739);
+  margin-bottom: 15px;
+}
+
+#logoImg {
+  height: 90px;
+  margin: 15px;
+}
+#leftSection {
+  padding: 10px;
+  background-color: rgba(160, 160, 160, 0.739);
+  width: 30%;
+  display: inline-block;
+  height: 100%;
+}
+#leftSection h1 {
+  padding: 15px;
+  margin-bottom: 10px;
+  color: white;
+  background-color: rgba(75, 75, 75, 0.739);
+  font-family: "Tourney", cursive;
+  margin-left: 20px;
+  font-size: 35px;
+}
+#rightSection {
+  display: block;
+  float: right;
+  width: 70%;
+  position: relative;
+}
+
+.imageOfItems {
+  width: 300px;
+  height: 300px;
+}
+
+#rightSection p {
+  margin-left: 5px;
+  text-align: left;
+  margin-top: 20px;
+  font-size: 30px;
+}
+#clickResult {
+  height: 80px;
+}
+#clickButtonResult {
+  margin-top: 25px;
+  margin-left: 40%;
+  font-size: larger;
+  background-color: chocolate;
+  height: 50px;
+}
+
+ul {
+  margin-left: 15px;
+  list-style: disc;
+}
+.lis {
+  font-family: "Rubik", sans-serif;
+  font-size: 22px;
+  margin-left: 20px;
+  list-style-type: disc;
+}
