@@ -6,17 +6,17 @@ const itemImage3 = document.getElementById("itemImage3");
 const imageSection = document.getElementById("rightSectionDiv");
 const ButtonResult = document.getElementById("clickButtonResult");
 
-const maxTry = 2; //as test will be 25 later
+const maxTry = 25; //as test will be 25 later
 let tryChose = 0;
 
-Items = function (itemName, ItemPath) {
+function Items(itemName, ItemPath) {
   this.itemName = itemName;
   this.ItemPath = ItemPath;
 
   this.timesItemShown = 0;
   this.timesItemClicked = 0;
   Items.allItems.push(this);
-};
+}
 
 Items.allItems = [];
 
