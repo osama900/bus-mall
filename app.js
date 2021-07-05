@@ -175,16 +175,3 @@ function getChart() {
     },
   });
 }
-
-// data: {
-//   labels: chartItemNames,
-//   datasets: [
-//     {
-//       label: "# of shown",
-//       data: chartItemShown,
-//       backgroundColor: ["rgba(255, 99, 132, 0.2)"],
-//       borderColor: ["rgba(255, 99, 132, 1)"],
-//       borderWidth: 1,
-//     },
-//   ],
-// },
