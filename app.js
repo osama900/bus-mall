@@ -9,6 +9,13 @@ const buttonResult = document.getElementById("clickButtonResult");
 const maxTry = 25; //as test will be 25 later
 let tryChose = 0;
 
+let chartItemNames = [];
+let chartItemVoted = [];
+let chartItemShown = [];
+
+//let thisSeen = [];
+let lastSeen = [];
+
 function Items(itemName, ItemPath) {
   this.itemName = itemName;
   this.ItemPath = ItemPath;
@@ -16,6 +23,7 @@ function Items(itemName, ItemPath) {
   this.timesItemShown = 0;
   this.timesItemClicked = 0;
   Items.allItems.push(this);
+  chartItemNames.push(this.itemName);
 }
 
 Items.allItems = [];
@@ -42,6 +50,7 @@ new Items("unicorn", "img/unicorn.jpg");
 new Items("water-can", "img/water-can.jpg");
 
 //console.log(allItems);
+//console.log("dddddd", chartItemNames);
 
 function generateRandom() {
   return Math.floor(Math.random() * Items.allItems.length);
@@ -58,15 +67,24 @@ function renderImages() {
   itemImage2Index = generateRandom();
   itemImage3Index = generateRandom();
   console.log("befour", itemImage1Index, itemImage2Index, itemImage3Index);
+  console.log("last seen befour while", lastSeen);
 
   while (
     itemImage1Index === itemImage2Index ||
     itemImage2Index === itemImage3Index ||
-    itemImage3Index === itemImage1Index
+    itemImage3Index === itemImage1Index ||
+    lastSeen.includes(itemImage1Index) ||
+    lastSeen.includes(itemImage2Index) ||
+    lastSeen.includes(itemImage3Index)
   ) {
     itemImage1Index = generateRandom();
     itemImage2Index = generateRandom();
+    itemImage3Index = generateRandom();
   }
+  lastSeen = [];
+
+  lastSeen.push(itemImage1Index, itemImage2Index, itemImage3Index);
+  console.log("last seen after", lastSeen);
   console.log("After", itemImage1Index, itemImage2Index, itemImage3Index);
   itemImage1.src = Items.allItems[itemImage1Index].ItemPath;
   itemImage2.src = Items.allItems[itemImage2Index].ItemPath;
@@ -115,15 +133,58 @@ function renderResultList() {
   if (rendered == false) {
     const ul = document.getElementById("unOrderedListResult");
     for (let i = 0; i < Items.allItems.length; i++) {
+      chartItemVoted.push(Items.allItems[i].timesItemClicked);
+      chartItemShown.push(Items.allItems[i].timesItemShown);
+
       let li = document.createElement("li");
       ul.appendChild(li);
 
       li.textContent = `${Items.allItems[i].itemName} has shown ${Items.allItems[i].timesItemShown} times and voted ${Items.allItems[i].timesItemClicked} times`;
       li.setAttribute("class", "lis");
     }
+    getChart();
 
     rendered = true;
   } else if (rendered == true) {
     imageSection.removeEventListener("click", handlerOfClick);
   }
 }
+
+function getChart() {
+  let ctx = document.getElementById("myChart").getContext("2d");
+  let myChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: chartItemNames,
+      datasets: [
+        {
+          label: "# of Votes",
+          data: chartItemVoted,
+          backgroundColor: ["rgba(255, 99, 132, 0.5)"],
+          borderColor: ["rgba(255, 99, 132, 1)"],
+          borderWidth: 1,
+        },
+        {
+          label: "# of shown",
+          data: chartItemShown,
+          backgroundColor: ["rgba(235, 183, 52, 0.5)"],
+          borderColor: ["rgba(196, 158, 61, 1)"],
+          borderWidth: 1,
+        },
+      ],
+    },
+  });
+}
+
+// data: {
+//   labels: chartItemNames,
+//   datasets: [
+//     {
+//       label: "# of shown",
+//       data: chartItemShown,
+//       backgroundColor: ["rgba(255, 99, 132, 0.2)"],
+//       borderColor: ["rgba(255, 99, 132, 1)"],
+//       borderWidth: 1,
+//     },
+//   ],
+// },
