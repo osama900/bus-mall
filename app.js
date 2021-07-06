@@ -5,8 +5,9 @@ const itemImage2 = document.getElementById("itemImage2");
 const itemImage3 = document.getElementById("itemImage3");
 const imageSection = document.getElementById("rightSectionDiv");
 const buttonResult = document.getElementById("clickButtonResult");
+let convertedArr = [];
 
-const maxTry = 3; //as test will be 25 later
+const maxTry = 5; //as test will be 25 later
 let tryChose = 0;
 
 let chartItemNames = [];
@@ -49,14 +50,9 @@ new Items("tauntaun", "img/tauntaun.jpg");
 new Items("unicorn", "img/unicorn.jpg");
 new Items("water-can", "img/water-can.jpg");
 
-//console.log(allItems);
-//console.log("dddddd", chartItemNames);
-
 function generateRandom() {
   return Math.floor(Math.random() * Items.allItems.length);
 }
-
-// rendered image
 
 let itemImage1Index;
 let itemImage2Index;
@@ -66,8 +62,8 @@ function renderImages() {
   itemImage1Index = generateRandom();
   itemImage2Index = generateRandom();
   itemImage3Index = generateRandom();
-  console.log("befour", itemImage1Index, itemImage2Index, itemImage3Index);
-  console.log("last seen befour while", lastSeen);
+  // console.log("befour", itemImage1Index, itemImage2Index, itemImage3Index);
+  //console.log("last seen befour while", lastSeen);
 
   while (
     itemImage1Index === itemImage2Index ||
@@ -84,8 +80,8 @@ function renderImages() {
   lastSeen = [];
 
   lastSeen.push(itemImage1Index, itemImage2Index, itemImage3Index);
-  console.log("last seen after", lastSeen);
-  console.log("After", itemImage1Index, itemImage2Index, itemImage3Index);
+  //console.log("last seen after", lastSeen);
+  // console.log("After", itemImage1Index, itemImage2Index, itemImage3Index);
   itemImage1.src = Items.allItems[itemImage1Index].ItemPath;
   itemImage2.src = Items.allItems[itemImage2Index].ItemPath;
   itemImage3.src = Items.allItems[itemImage3Index].ItemPath;
@@ -104,9 +100,6 @@ function handlerOfClick(event) {
   tryChose++;
 
   if (tryChose <= maxTry) {
-    // console.log(event.target.id);
-    // console.log(tryChose + "this is     jh");
-
     if (event.target.id === "itemImage1") {
       Items.allItems[itemImage1Index].timesItemClicked++;
     } else if (event.target.id === "itemImage2") {
@@ -119,7 +112,7 @@ function handlerOfClick(event) {
     }
 
     renderImages();
-    console.log(Items.allItems);
+    console.log("alllll ", Items.allItems);
   } else {
     alert("click Show result to check result");
     imageSection.removeEventListener("click", handlerOfClick);
@@ -142,8 +135,11 @@ function renderResultList() {
       li.textContent = `${Items.allItems[i].itemName} has shown ${Items.allItems[i].timesItemShown} times and voted ${Items.allItems[i].timesItemClicked} times`;
       li.setAttribute("class", "lis");
     }
-    getChart();
+    // console.log("all items FINAL", Items.allItems);
+    // getChart();
 
+    saveToLs();
+    //getFromLs();
     rendered = true;
   } else if (rendered == true) {
     imageSection.removeEventListener("click", handlerOfClick);
@@ -174,4 +170,30 @@ function getChart() {
       ],
     },
   });
+}
+let parsedOrder = [];
+function saveToLs() {
+  const data = localStorage.getItem("dataChart");
+  parsedOrder = JSON.parse(data);
+  if (parsedOrder === null) {
+    console.log("null data");
+    convertedArr = JSON.stringify(Items.allItems);
+    localStorage.setItem("dataChart", convertedArr);
+
+    getChart();
+  } else {
+    console.log("data exist ");
+    let data = localStorage.getItem("dataChart");
+    parsedOrder = JSON.parse(data);
+    for (let i = 0; i < Items.allItems.length; i++) {
+      Items.allItems[i].timesItemShown += parsedOrder[i].timesItemShown;
+      Items.allItems[i].timesItemClicked += parsedOrder[i].timesItemClicked;
+      console.log("data edited ");
+    }
+    console.log("last edite", Items.allItems);
+    convertedArr = JSON.stringify(Items.allItems);
+    localStorage.setItem("dataChart", convertedArr);
+
+    getChart();
+  }
 }
