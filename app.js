@@ -6,7 +6,7 @@ const itemImage3 = document.getElementById("itemImage3");
 const imageSection = document.getElementById("rightSectionDiv");
 const buttonResult = document.getElementById("clickButtonResult");
 
-const maxTry = 25; //as test will be 25 later
+const maxTry = 3; //as test will be 25 later
 let tryChose = 0;
 
 function Items(itemName, ItemPath) {
