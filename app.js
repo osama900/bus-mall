@@ -7,7 +7,7 @@ const imageSection = document.getElementById("rightSectionDiv");
 const buttonResult = document.getElementById("clickButtonResult");
 let convertedArr = [];
 
-const maxTry = 5; //as test will be 25 later
+const maxTry = 25; //as test will be 25 later
 let tryChose = 0;
 
 let chartItemNames = [];
