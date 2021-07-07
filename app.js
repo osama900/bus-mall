@@ -7,14 +7,13 @@ const imageSection = document.getElementById("rightSectionDiv");
 const buttonResult = document.getElementById("clickButtonResult");
 let convertedArr = [];
 
-const maxTry = 25; //as test will be 25 later
+const maxTry = 25;
 let tryChose = 0;
 
 let chartItemNames = [];
 let chartItemVoted = [];
 let chartItemShown = [];
 
-//let thisSeen = [];
 let lastSeen = [];
 
 function Items(itemName, ItemPath) {
@@ -30,7 +29,6 @@ function Items(itemName, ItemPath) {
 Items.allItems = [];
 
 new Items("bag", "img/bag.jpg");
-//console.log(allItems[0]);
 new Items("banana", "img/banana.jpg");
 new Items("bathroom", "img/bathroom.jpg");
 new Items("boots", "img/boots.jpg");
@@ -62,8 +60,6 @@ function renderImages() {
   itemImage1Index = generateRandom();
   itemImage2Index = generateRandom();
   itemImage3Index = generateRandom();
-  // console.log("befour", itemImage1Index, itemImage2Index, itemImage3Index);
-  //console.log("last seen befour while", lastSeen);
 
   while (
     itemImage1Index === itemImage2Index ||
@@ -80,8 +76,7 @@ function renderImages() {
   lastSeen = [];
 
   lastSeen.push(itemImage1Index, itemImage2Index, itemImage3Index);
-  //console.log("last seen after", lastSeen);
-  // console.log("After", itemImage1Index, itemImage2Index, itemImage3Index);
+
   itemImage1.src = Items.allItems[itemImage1Index].ItemPath;
   itemImage2.src = Items.allItems[itemImage2Index].ItemPath;
   itemImage3.src = Items.allItems[itemImage3Index].ItemPath;
@@ -89,7 +84,6 @@ function renderImages() {
   Items.allItems[itemImage1Index].timesItemShown++;
   Items.allItems[itemImage2Index].timesItemShown++;
   Items.allItems[itemImage3Index].timesItemShown++;
-  //console.log(Items.allItems[itemImage3Index]);
   console.log(Items.allItems);
 }
 renderImages();
@@ -112,7 +106,6 @@ function handlerOfClick(event) {
     }
 
     renderImages();
-    console.log("alllll ", Items.allItems);
   } else {
     alert("click Show result to check result");
     imageSection.removeEventListener("click", handlerOfClick);
@@ -135,11 +128,8 @@ function renderResultList() {
       li.textContent = `${Items.allItems[i].itemName} has shown ${Items.allItems[i].timesItemShown} times and voted ${Items.allItems[i].timesItemClicked} times`;
       li.setAttribute("class", "lis");
     }
-    // console.log("all items FINAL", Items.allItems);
-    // getChart();
 
     saveToLs();
-    //getFromLs();
     rendered = true;
   } else if (rendered == true) {
     imageSection.removeEventListener("click", handlerOfClick);
